@@ -43,8 +43,9 @@ author: Stratify Cloud Technologies
 copyright: "(cleft) 2023-{currentYear} {author}"
 
 description: >- # this means to ignore newlines until "baseurl:"
-  Stratify Cloud Technologies is a Cloud & DevOps service provider based in Timisoara, Romania.
-  We provide tailored solutions based on Cloud Native technologies and services.
+  Cloud & DevOps consulting based in Timișoara, Romania. Kubernetes, AWS,
+  Terraform, GitOps, and SOC 2 compliance and disaster recovery for growing
+  teams.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.stratifycloud.tech" # the base hostname & protocol for your site, e.g. https://example.com

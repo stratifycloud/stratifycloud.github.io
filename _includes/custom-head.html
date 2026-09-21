@@ -14,3 +14,35 @@
     scroll-margin-top: 170px;
   }
 </style>
+
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": {{ site.title | jsonify }},
+  "url": {{ site.url | jsonify }},
+  "description": {{ site.description | strip_newlines | jsonify }},
+  "image": {{ "/assets/images/logo-dark.png" | absolute_url | jsonify }},
+  "email": {{ site.email | jsonify }},
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Timișoara",
+    "addressCountry": "RO"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Stefan Chivu",
+    "jobTitle": "Cloud Solutions Architect",
+    "sameAs": [
+      "https://www.linkedin.com/in/stefan-chivu/",
+      "https://www.github.com/stefan-chivu"
+    ]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/stefan-chivu/",
+    "https://www.github.com/stefan-chivu"
+  ]
+}
+</script>
+{% endif %}
