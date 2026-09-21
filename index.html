@@ -1,8 +1,467 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 title: Home
 banner: "/assets/images/banners/gradient-bg.png"
+banner_html: home-banner.html
+sidebar: []
 ---
+
+<div class="sc-about">
+
+<style>
+  .sc-about .sc-lead {
+    font-size: 1.15em;
+    line-height: 1.6;
+  }
+
+  .sc-about .sc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+    margin: 32px 0 40px;
+  }
+
+  @media (max-width: 700px) {
+    .sc-about .sc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sc-about .sc-flip {
+    position: relative;
+    height: 170px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .sc-about .sc-flip-inner {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .sc-about .sc-flip:hover .sc-flip-inner,
+  .sc-about .sc-flip:focus .sc-flip-inner,
+  .sc-about .sc-flip.is-flipped .sc-flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .sc-about .sc-flip:focus {
+    outline: none;
+  }
+
+  .sc-about .sc-flip-front,
+  .sc-about .sc-flip-back {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .sc-about .sc-flip-front {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border: 1px solid rgba(28, 180, 222, 0.25);
+    background: rgba(28, 180, 222, 0.05);
+    transition: box-shadow 0.15s ease;
+  }
+
+  .sc-about .sc-flip:hover .sc-flip-front {
+    box-shadow: 0 8px 24px rgba(28, 180, 222, 0.18);
+  }
+
+  .sc-about .sc-flip-front i.sc-flip-topic {
+    font-size: 2.4em;
+    color: #1cb4de;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .sc-about .sc-flip-front h3 {
+    margin: 0;
+    font-size: 1.35em;
+  }
+
+  .sc-about .sc-flip-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(28, 180, 222, 0.12);
+    color: #1cb4de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    animation: sc-flip-pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes sc-flip-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.55; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .sc-about .sc-flip-back {
+    transform: rotateY(180deg);
+    background: #1cb4de;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 22px;
+    overflow-y: auto;
+  }
+
+  .sc-about .sc-flip-back h4 {
+    margin: 0 0 6px;
+    font-size: 0.92em;
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  .sc-about .sc-flip-back p {
+    margin: 0;
+    font-size: 0.8em;
+    line-height: 1.45;
+    opacity: 0.95;
+  }
+
+  html[data-theme="dark"] .sc-about .sc-flip-front {
+    background: rgba(28, 180, 222, 0.08);
+    border-color: rgba(28, 180, 222, 0.3);
+  }
+
+  html[data-theme="dark"] .sc-about .sc-flip-icon {
+    background: rgba(28, 180, 222, 0.22);
+  }
+
+  .sc-about .sc-contact-card {
+    border: 1px solid rgba(28, 180, 222, 0.25);
+    background: rgba(28, 180, 222, 0.05);
+    border-radius: 16px;
+    padding: 36px;
+    margin: 24px 0 40px;
+    text-align: center;
+  }
+
+  html[data-theme="dark"] .sc-about .sc-contact-card {
+    background: rgba(28, 180, 222, 0.08);
+    border-color: rgba(28, 180, 222, 0.3);
+  }
+
+  .sc-about .sc-contact-card > p {
+    margin: 0 0 20px;
+  }
+
+  .sc-about .sc-contact-person {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin: 0 0 28px;
+  }
+
+  .sc-about .sc-contact-person > div {
+    text-align: left;
+  }
+
+  .sc-about .sc-contact-photo-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .sc-about .sc-contact-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.5) contrast(1.05);
+  }
+
+  .sc-about .sc-contact-photo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #1cb4de;
+    opacity: 0.35;
+    mix-blend-mode: color;
+  }
+
+  .sc-about .sc-contact-person h3 {
+    margin: 0;
+    font-size: 1.8em;
+  }
+
+  .sc-about .sc-contact-person .sc-role {
+    margin: 6px 0 0;
+    opacity: 0.75;
+    font-size: 1.2em;
+  }
+
+  .sc-about .sc-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .sc-about .sc-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #1cb4de;
+    color: #fff !important;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: opacity 0.15s ease;
+  }
+
+  .sc-about .sc-contact-btn:hover {
+    opacity: 0.85;
+  }
+
+  .sc-about form.sc-form-card {
+    max-width: 480px;
+    margin: 24px auto 0;
+    text-align: left;
+  }
+
+  .sc-about .sc-form-field {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(28, 180, 222, 0.35);
+    background: rgba(255, 255, 255, 0.6);
+    color: inherit;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+
+  .sc-about textarea.sc-form-field {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .sc-about .sc-form-field:focus {
+    outline: none;
+    border-color: #1cb4de;
+    box-shadow: 0 0 0 3px rgba(28, 180, 222, 0.15);
+  }
+
+  html[data-theme="dark"] .sc-about .sc-form-field {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .sc-about .sc-form-submit {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+  }
+</style>
+
+<p class="sc-lead">
+    At Stratify, we harness bleeding-edge open-source technologies to craft
+    tailored cloud solutions that fit your business needs like a glove.
+</p>
+
+<h2 id="services">Building your cloud, your way</h2>
+
+<p>
+    We design and operate cloud infrastructure end to end — not just the
+    architecture diagram, but the migrations, the GitOps pipelines, the
+    backups that actually restore, and the compliance documentation that
+    matches what's really running. Here's where we go deep.
+</p>
+
+<div class="sc-grid">
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-cloud sc-flip-topic"></i>
+                <h3>Cloud Architecture & Migration</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>That legacy infrastructure nobody wants to touch? We take it off your plate.</h4>
+                <p>We design multi-account cloud environments built to last, and lead migrations off legacy platforms without disrupting what's already running.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-cubes sc-flip-topic"></i>
+                <h3>Kubernetes Operations</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>Your Kubernetes fleet, running like it's one cluster instead of ten.</h4>
+                <p>We run Kubernetes fleets that scale from one cluster to many, across regions and accounts, without relying on one person's tribal knowledge.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-exchange sc-flip-topic"></i>
+                <h3>GitOps & Release Automation</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>If a deploy needs a human to babysit it, it isn't automated.</h4>
+                <p>Every change we ship goes out the same reviewed, repeatable way — so releases stop depending on who's on call that day.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-refresh sc-flip-topic"></i>
+                <h3>CI/CD Automation</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>Ship changes out in minutes, not once a quarter.</h4>
+                <p>We empower your development process through fast, optimized, and secure pipelines.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-code-fork sc-flip-topic"></i>
+                <h3>Infrastructure as Code</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>If it's not in version control, it doesn't exist.</h4>
+                <p>We treat infrastructure like software — defined in code, reviewed before it changes, and reproducible on demand.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-life-ring sc-flip-topic"></i>
+                <h3>Disaster Recovery & Backup Engineering</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>An outage is not a matter of if — it's when.</h4>
+                <p>We build backup and failover systems designed to survive a real outage — not just look resilient in a diagram.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-shield sc-flip-topic"></i>
+                <h3>SOC 2 & Compliance Readiness</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>Paperwork that doesn't match reality helps no one — especially not you, during an audit.</h4>
+                <p>We get your infrastructure and your documentation to actually agree with each other, so the audit confirms what's already true.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-eye sc-flip-topic"></i>
+                <h3>Observability & Reliability</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>An alert that fires fifty times a day is the same as no alert at all.</h4>
+                <p>We build monitoring that pages you for what matters, and stays quiet for what doesn't.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sc-flip" tabindex="0">
+        <div class="sc-flip-inner">
+            <div class="sc-flip-front">
+                <i class="fa fa-line-chart sc-flip-topic"></i>
+                <h3>Cost & Performance Optimization</h3>
+                <span class="sc-flip-icon" aria-hidden="true"><i class="fa fa-refresh"></i></span>
+            </div>
+            <div class="sc-flip-back">
+                <h4>The most expensive resource is the one nobody remembers turning on.</h4>
+                <p>We dig through what you're actually paying for and cut what isn't earning its keep — no ceremony, just lower bills.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.querySelectorAll('.sc-about .sc-flip').forEach(function (card) {
+    card.addEventListener('click', function () {
+      card.classList.toggle('is-flipped');
+    });
+  });
+</script>
+
+<p>
+    With Stratify, you're not just getting a cloud service provider — you're
+    getting a partner committed to your success, every step of the way.
+    Build <b>your cloud, your way</b>.
+</p>
+
+<h2 id="contact">Get in touch</h2>
+
+<div class="sc-contact-card">
+    <div class="sc-contact-person">
+        <div class="sc-contact-photo-wrap">
+            <img src="assets/images/schivu_img.jpeg" alt="Stefan Chivu">
+        </div>
+        <div>
+            <h3 id="schivu">Stefan Chivu</h3>
+            <p class="sc-role">Cloud Solutions Architect</p>
+        </div>
+    </div>
+
+    <p>Have a project in mind? Reach out to us using any of the channels below:</p>
+
+    <div class="sc-contact">
+        <a class="sc-contact-btn" href="{{ '/book/' | relative_url }}" target="_blank" rel="noopener"><i class="fa fa-calendar"></i> Book a call</a>
+        <a class="sc-contact-btn" href="https://www.linkedin.com/in/stefan-chivu/" target="_blank" rel="noopener"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <a class="sc-contact-btn" href="https://www.github.com/stratifycloud" target="_blank" rel="noopener"><i class="fa fa-github"></i> GitHub</a>
+    </div>
+
+    <p>Or send us an e-mail:</p>
+
+    <form class="sc-form-card" action="https://formsubmit.co/contact@stratifycloud.tech" method="POST">
+        <input type="hidden" name="_subject" value="New message from stratifycloud.tech">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="{{ site.url }}{{ '/#contact' | relative_url }}">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <input class="sc-form-field" type="text" name="name" placeholder="Your name" required>
+        <input class="sc-form-field" type="email" name="email" placeholder="Your email" required>
+        <textarea class="sc-form-field" name="message" placeholder="What are you working on?" required></textarea>
+
+        <button class="sc-contact-btn sc-form-submit" type="submit"><i class="fa fa-paper-plane"></i> Send message</button>
+    </form>
+</div>
+
+</div>

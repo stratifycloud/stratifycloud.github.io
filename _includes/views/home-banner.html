@@ -1,0 +1,80 @@
+<style>
+  .sc-hero {
+    position: relative;
+  }
+
+  .sc-hero-mark {
+    position: absolute;
+    right: -60px;
+    bottom: -130px;
+    width: 420px;
+    max-width: 60vw;
+    opacity: 0.14;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sc-hero .page-banner-default {
+    position: relative;
+    z-index: 1;
+  }
+
+  .sc-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .sc-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: opacity 0.15s ease, background 0.15s ease;
+  }
+
+  .sc-hero-btn-primary {
+    background: #fff;
+    color: #1a7d99 !important;
+  }
+
+  .sc-hero-btn-primary:hover {
+    opacity: 0.88;
+  }
+
+  .sc-hero-btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #fff !important;
+  }
+
+  .sc-hero-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  @media (max-width: 600px) {
+    .sc-hero-mark {
+      display: none;
+    }
+  }
+</style>
+
+<div class="sc-hero">
+  <img class="sc-hero-mark" src="{{ '/assets/images/android-chrome-512x512.png' | relative_url }}" alt="">
+  <div class="page-banner-default">
+    <h1 class="page-banner-heading">
+      {{ heading | default: page.title | escape }}
+    </h1>
+    <h2 class="page-banner-subheading">
+      {{ subheading | default: page.subtitle | escape }}
+    </h2>
+    <div class="sc-hero-cta">
+      <a class="sc-hero-btn sc-hero-btn-primary" href="#services">See everything we do</a>
+      <a class="sc-hero-btn sc-hero-btn-secondary" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</div>
